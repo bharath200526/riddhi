@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Riddhi ❤️</title>
+    <style>
+        body, html { 
+            margin: 0; padding: 0; height: 100%; width: 100%;
+            overflow: hidden; background: #000; 
+        }
+        iframe { width: 100%; height: 100%; border: none; display: block; }
+        #bgMusic { display: none; }
+    </style>
+</head>
+<body>
+    <audio id="bgMusic" loop>
+        <source src="snap/song1.mp3" type="audio/mpeg">
+    </audio>
+    <iframe id="contentFrame" src="index.html"></iframe>
+    <script>
+        const audio = document.getElementById("bgMusic");
+        const frame = document.getElementById("contentFrame");
+        window.addEventListener("message", function(event) {
+            if (event.data === "start_surprise") { audio.play(); } 
+            else if (event.data === "go_to_hub") { frame.src = "hub.html"; }
+            else if (event.data === "pause_bg_music") { audio.pause(); } 
+            else if (event.data === "resume_bg_music") { audio.play(); }
+        });
+    </script>
+<script>
+    const reel = document.getElementById('feelingReel');
+
+    // When the video starts playing
+    reel.onplay = function() {
+        window.parent.postMessage("pause_bg_music", "*");
+    };
+
+    // When the video is paused
+    reel.onpause = function() {
+        window.parent.postMessage("resume_bg_music", "*");
+    };
+
+    // When the video finishes
+    reel.onended = function() {
+        window.parent.postMessage("resume_bg_music", "*");
+    };
+</script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dedicated for Riddhi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        .handwritten { font-family: 'Dancing Script', cursive; }
+        body { 
+            font-family: 'Inter', sans-serif;
+            background: url('love.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            margin-bottom: 4rem;
+            transition: transform 0.5s ease;
+        }
+        .video-frame {
+            width: 100%;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            background: black;
+        }
+        /* Custom Audio Filter to match theme */
+        audio {
+            width: 100%;
+            filter: invert(100%) hue-rotate(180deg) brightness(1.5);
+        }
+        .active-video { border: 2px solid rgba(255, 182, 193, 0.5); transform: scale(1.02); }
+    </style>
+</head>
+<body class="min-h-screen py-10 px-6">
+
+    <div class="fixed inset-0 bg-black/60 z-0"></div>
+
+    <div class="relative z-10 max-w-3xl mx-auto">
+        <a href="hub.html" class="inline-flex items-center gap-2 mb-10 text-white/70 hover:text-rose-300 transition-all">
+            <span class="text-xl">←</span> Back to Hub
+        </a>
+
+        <header class="text-center mb-16">
+            <h1 class="handwritten text-5xl md:text-6xl text-rose-200">Our Story in Motion</h1>
+            <p class="text-white/60 mt-3 uppercase tracking-[0.4em] text-xs font-semibold">Videos will play one after another</p>
+        </header>
+
+        <div id="video-collection">
+            <div class="glass-card p-4 md:p-6 rounded-[2.5rem]">
+                <div class="video-frame">
+                    <video id="vid1" controls class="w-full h-auto block playlist-video" poster="love.jpg">
+                        <source src="video1.mp4" type="video/mp4">
+                    </video>
+                </div>	
+                <div class="mt-6 text-center">
+                    <h3 class="text-white text-xl font-medium">Unnaley...</h3>
+                </div>
+            </div>
+
+            <div class="glass-card p-4 md:p-6 rounded-[2.5rem]">
+                <div class="video-frame">
+                    <video id="vid2" controls class="w-full h-auto block playlist-video" poster="love.jpg">
+                        <source src="video2.mp4" type="video/mp4">
+                    </video>
+                </div>	
+                <div class="mt-6 text-center">
+                    <h3 class="text-white text-xl font-medium">Thimiru katadhadi.....</h3>
+                </div>
+            </div>
+
+            <div class="glass-card p-4 md:p-6 rounded-[2.5rem]">
+                <div class="video-frame">
+                    <video id="vid3" controls class="w-full h-auto block playlist-video" poster="love.jpg">
+                        <source src="video3.mp4" type="video/mp4">
+                    </video>
+                </div>	
+                <div class="mt-6 text-center">
+                    <h3 class="text-white text-xl font-medium">Kanimozhiyeh....</h3>
+                </div>
+            </div>
+
+            <div class="glass-card p-4 md:p-6 rounded-[2.5rem]">
+                <div class="video-frame">
+                    <video id="vid4" controls class="w-full h-auto block playlist-video" poster="love.jpg">
+                        <source src="video4.mp4" type="video/mp4">
+                    </video>
+                </div>	
+                <div class="mt-6 text-center">
+                    <h3 class="text-white text-xl font-medium">Enna naan seivan...</h3>
+                </div>
+            </div>
+
+            <div class="glass-card p-4 md:p-6 rounded-[2.5rem]">
+                <div class="video-frame">
+                    <video id="vid5" controls class="w-full h-auto block playlist-video" poster="love.jpg">
+                        <source src="video5.mp4" type="video/mp4">
+                    </video>
+                </div>	
+                <div class="mt-6 text-center">
+                    <h3 class="text-white text-xl font-medium">pattumah</h3>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="text-white/80 uppercase tracking-widest text-sm mb-8 border-b border-white/10 pb-2 font-bold">Extra Audio Tracks</h2>
+        
+        <div class="space-y-6 mb-20">
+            <div class="glass-card p-6 rounded-2xl mb-0">
+                <p class="text-white mb-2 font-medium">commit</p>
+                <audio controls><source src="audio1.mp3" type="audio/mpeg"></audio>
+            </div>
+            <div class="glass-card p-6 rounded-2xl mb-0">
+                <p class="text-white mb-2 font-medium">Un vizhigalil</p>
+                <audio controls><source src="audio2.mp3" type="audio/mpeg"></audio>
+            </div>
+            <div class="glass-card p-6 rounded-2xl mb-0">
+                <p class="text-white mb-2 font-medium">miss pana vekathadi</p>
+                <audio controls><source src="audio3.mp3" type="audio/mpeg"></audio>
+            </div>
+        </div>
+
+        <footer class="mt-20 text-center pb-10">
+            <p class="text-white/30 text-[10px] tracking-[0.5em] uppercase font-bold">This sountrack is express my feeling whenever i think about you these songs are coming in my thoughts.</p>
+        </footer>
+    </div>
+
+    <script>
+    // Get all video and audio elements on this page
+    const players = document.querySelectorAll('video, audio');
+
+    players.forEach(player => {
+        // When any video or audio starts playing
+        player.onplay = function() {
+            // Tell main.html to pause the background song
+            window.parent.postMessage("pause_bg_music", "*");
+        };
+
+        // When the video or audio ends
+        player.onended = function() {
+            // Tell main.html to start the background song again
+            window.parent.postMessage("resume_bg_music", "*");
+        };
+
+        // Optional: If she pauses the video manually, resume background music
+        player.onpause = function() {
+            // Only resume if she isn't just switching between videos
+            setTimeout(() => {
+                const isAnythingPlaying = Array.from(players).some(p => !p.paused);
+                if (!isAnythingPlaying) {
+                    window.parent.postMessage("resume_bg_music", "*");
+                }
+            }, 100);
+        };
+    });
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What I Need - Memories</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        .handwritten { font-family: 'Dancing Script', cursive; }
+        body { 
+            font-family: 'Inter', sans-serif;
+            background: url('love.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        /* Style for the Memory Polaroid Card */
+        .memory-card {
+            background: white;
+            padding: 10px;
+            padding-bottom: 25px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        .memory-card:hover { transform: translateY(-8px) rotate(1deg) scale(1.05); z-index: 10; }
+
+        /* The Quote Text inside the Image */
+        .quote-overlay {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+            text-align: center;
+            color: white;
+            font-size: 1.1rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8), 0 0 10px rgba(255,255,255,0.4);
+        }
+    </style>
+</head>
+<body class="min-h-screen py-16 px-6 overflow-x-hidden">
+
+    <div class="fixed inset-0 bg-black/50 z-0"></div>
+
+    <div class="relative z-10 max-w-6xl mx-auto">
+        <a href="hub.html" class="inline-block mb-10 text-white/70 hover:text-rose-300 transition-all flex items-center gap-2">
+            <span class="text-xl">←</span> Back to Hub
+        </a>
+
+        <header class="text-center mb-16">
+            <h1 class="handwritten text-5xl md:text-6xl text-rose-200">A Few Little Needs...</h1>
+            <p class="text-white/60 mt-2 uppercase tracking-[0.3em] text-xs">A Memory and a Quote</p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 items-start">
+            
+            <div class="memory-card rounded-sm">
+                <div class="relative w-full h-72 overflow-hidden rounded-sm">
+                    <img src="memory1.jpg" alt="Memory" class="w-full h-full object-cover">
+                    <p class="handwritten quote-overlay">" intha maari oru coffee shop la neeyum naanum okanthu pesanum time porathe theriya koodathu apadiyeh coffee kudichineh una paathuneh irukanum." ❤️</p>
+                </div>
+                <p class="text-gray-500 text-xs tracking-wider uppercase mt-3 text-center">coffee date</p>
+            </div>
+
+            <div class="memory-card rounded-sm lg:rotate(-2deg)">
+                <div class="relative w-full h-72 overflow-hidden rounded-sm">
+                    <img src="memory2.jpg" alt="Memory" class="w-full h-full object-cover">
+                    <p class="handwritten quote-overlay">"intha maari unkooda kai pudichinu nadanthu ponumnu romba naal aasa. Lover ah lam ila oru best friend ah like  sania nandhita maari. " ✨</p>
+                </div>
+                <p class="text-gray-500 text-xs tracking-wider uppercase mt-3 text-center">Hold your hands.</p>
+            </div>
+
+            <div class="memory-card rounded-sm lg:rotate(2deg)">
+                <div class="relative w-full h-72 overflow-hidden rounded-sm">
+                    <img src="memory3.jpg" alt="Memory" class="w-full h-full object-cover">
+                    <p class="handwritten quote-overlay">"nama epomeh nalla pesinu irukanum best friends ah enkooda kadaisi verikum travel pananum na apo sonathu than ipovum solra nee na enaku romba pudikum" 💌</p>
+                </div>
+                <p class="text-gray-500 text-xs tracking-wider uppercase mt-3 text-center">Us, Together</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

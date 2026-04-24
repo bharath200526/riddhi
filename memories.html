@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Memories with you | For Riddhi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0; padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: url('love.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .handwritten { font-family: 'Dancing Script', cursive; }
+
+        .overlay {
+            position: fixed; inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1100px; margin: 0 auto;
+            padding: 40px 20px; text-align: center;
+        }
+
+        .photo-grid {
+            display: flex; flex-wrap: wrap;
+            justify-content: center; gap: 30px; margin-top: 40px;
+        }
+
+        /* The Polaroid Card */
+        .polaroid {
+            background: white;
+            padding: 15px 15px 20px 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease;
+            width: 250px;
+            cursor: pointer;
+        }
+
+        .polaroid img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+            border: 1px solid #eee;
+        }
+
+        /* The words inside the picture's footer */
+        .caption {
+            color: #333;
+            margin-top: 15px;
+            font-size: 1.1rem;
+            line-height: 1.3;
+            min-height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Zoom Effect on Click */
+        .polaroid.zoomed {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1.3) rotate(0deg) !important;
+            z-index: 1000;
+        }
+
+        .zoom-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            z-index: 999;
+        }
+        .zoom-overlay.active { display: block; }
+
+        .back-link {
+            text-decoration: none;
+            color: #ffcad4;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay"></div>
+    <div id="zoomOverlay" class="zoom-overlay" onclick="closeZoom()"></div>
+
+    <div class="container">
+        <a href="hub.html" class="back-link">← Back to Hub</a>
+        <h1 class="handwritten" style="font-size: 45px; margin: 20px 0;">Our Memories</h1>
+        <p style="font-size: 11px; opacity: 0.6; letter-spacing: 1px;">CLICK TO ENLARGE</p>
+        
+        <div class="photo-grid" id="photoGallery"></div>
+    </div>
+
+    <script>
+        const gallery = document.getElementById('photoGallery');
+        const overlay = document.getElementById('zoomOverlay');
+        let currentlyZoomed = null;
+        
+        // Add your 28 sentences here
+        const sentences = [
+            "intha naal than namma unappa kita maatunom but anniku than neraiya pesunom namma... ❤️",
+            "una nenachinu park la neraiya vati okanthurukan athula oru naal ithu...",
+            "nee unoda paati kooda vantha apo snap potathu nanum unpaatiku theriyama una paathunu irunthathu semma experience...",
+            "neeyum nanum park la okanthu pesunathu... ena pesurathuneh theriyama vanthu una paathunu irunthathu...",
+            "ithu una paaka night vanthu aprom una paakamudiyama pona aprom nee pota snap...",
+            "Nee ooorula irukanu theerinjum nee irukamaatiyanu nenachi una paaka vanthathu...",
+            "Una paaka vanthu paka mudiyama malaila nenanjineh pona una paakamudiyathunu therinjum vanthu thirumbi pona ",
+            "Una paaka vanthu wait pani aprom una paathutu unkita phone pesiteh v2ku ponathu romba haappy irunthuthu.",
+            "una paaka vanthu enala una paaka mudila ana nee ena paathuruka ena pakanumnuu nenachiruka... ✨",
+            "Na roja va pathi pesinu irukumbothu un tv la roja paatu odinu irunthuthu snap anupuna such a relatable scenario...",
+            "Unakaga vanguna innum veshirukiya ila un v2la paathu thookipotangalanu kooda therila😍",
+            "epo paathalum intha poona kitayeh velaiyadinu irupa antha poona than unaku thonaiya irukunu solinu iruntha.",
+            "clean shave panitu iruntha atha paathu nee sirichitu iruntha nee sonanu pana...",
+            "epo paathalum ice cube saapuduratheh vela unaku keta nalla irukunu solrathu...",
+            "First time enaku possessive vanthuthu intha sticker pakathu v2 paiyan kooda otunanu therinjapo aprom than nee sona avan 10th nu..",
+            "Nail odanjiduchi sona itha vechi oru half hour talk pochi apo...",
+            "un appa company la namma meet panom meet pana apo nee avalova pesala ana athuku aprom nalla pesunom nalla irunchi...",
+            "unakaga un stop la ninunu irupan un bus vantha odaneh oru happy ah feel agum such a beatifull experience...",
+            "unakaga wait paninu iruntha...",
+            "na varatha apo nee pota snnap... itha nee podumbothu enda iniku varalanu keta maarieh irunchi...",
+            "nee trainla munadi iruntha call pani pesineh vanthom oru happy moment...",
+            "intha day la than nee enga poninganu solala nanum polama venama nu yosichinu iruntha una paaka vanthutu paakama pona epadi... athan wait pana ana anniku romba aluntha because oru maari kastama irunchi veliya than pora kootinu poiruntha enanu",
+            "first time enaku theerinji veliya frnds oda veliya poranu sona so nanum un koodayeh vanthuralamnu paathan nee vena vena nu soli v2ku poga solita una paaka mudilanu oru kastam... iruntha athum oru experience than ...",
+            "coolie padathuku pona ena varakoodathunu solium na vanthan una pakanumnu nanum ticket eduthutu poiralamnu paatha nee venanu sona oreh reason ku varla.",
+            "Unoda family oda poiruntha un pinadiyeh vanthunu iruntha hot wheels la neeyum un annavum irunthathu una paathunu kooda veh vanthathu iyo... ",
+            "nee enga irukanu thedi thedi oru edathula poi orama okanthutan nee enga irukiyonu theriyama aprom neeyum snap anupuna aprom kandu pudichan...",
+            "anniku na saapdaveh ila aprom v2ku pora valila bus miss panitan aprom atha maari eri aprom v2ku pona",
+            "unkita antha keychain kodukanumnu athum unakeh theriyama vanthu koduthutu paathutu polamnu nenachan ana nee paathuta nanum matikitan ❤️"
+        ];
+
+        for (let i = 1; i <= 28; i++) {
+            const rot = (Math.random() * 6 - 3).toFixed(2);
+            const msg = sentences[i-1] || "A beautiful memory.";
+            
+            const card = document.createElement('div');
+            card.className = 'polaroid';
+            card.style.transform = `rotate(${rot}deg)`;
+            
+            card.innerHTML = `
+                <img src="snap/mem${i}.jpeg" alt="Memory">
+                <div class="caption handwritten">${msg}</div>
+            `;
+
+            card.onclick = function(e) {
+                e.stopPropagation();
+                if (this.classList.contains('zoomed')) {
+                    closeZoom();
+                } else {
+                    closeZoom();
+                    this.classList.add('zoomed');
+                    overlay.classList.add('active');
+                    currentlyZoomed = this;
+                }
+            };
+            
+            gallery.appendChild(card);
+        }
+
+        function closeZoom() {
+            if (currentlyZoomed) {
+                currentlyZoomed.classList.remove('zoomed');
+                overlay.classList.remove('active');
+                currentlyZoomed = null;
+            }
+        }
+    </script>
+
+    <footer style="margin-top: 80px; padding-bottom: 60px; text-align: center;">
+        <hr style="border: 0; height: 1px; background: rgba(255,255,255,0.2); width: 60%; margin: 0 auto 40px;">
+        <h2 class="handwritten" style="font-size: 35px;">Ithula irukura oru oru snap nee pona edathukulamm na vanthurukan na atha kastamaveh nenachathu ila ana nee kastapattu varanu solra un kooda time spend pana nalla irukumm apotha innum nalla pesamudiyum. Something we need to explore then only our emotional soul will be strong... Please, I want you to travel with me life long... ❤️</h2>
+    </footer>
+
+</body>
+</html>
