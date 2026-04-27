@@ -5,15 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For Riddhi ❤️</title>
     <style>
+        /* Ensures the experience is full-screen and clean */
         body, html { 
-            margin: 0; padding: 0; 
-            height: 100%; width: 100%;
-            overflow: hidden; background: #000; 
+            margin: 0; 
+            padding: 0; 
+            height: 100%; 
+            width: 100%;
+            overflow: hidden; 
+            background: #000; 
         }
+
+        /* This is the window that will show main.html, hub.html, etc. */
         iframe { 
-            width: 100%; height: 100%; 
-            border: none; display: block;
+            width: 100%; 
+            height: 100%; 
+            border: none; 
+            display: block;
         }
+
+        /* Keeps the audio player hidden */
         #bgMusic { display: none; }
     </style>
 </head>
@@ -29,14 +39,26 @@
         const audio = document.getElementById("bgMusic");
         const frame = document.getElementById("contentFrame");
 
+        // This listens for signals sent from the pages inside the iframe
         window.addEventListener("message", function(event) {
+            
+            // 1. Starts music when "Reveal" is clicked in main.html
             if (event.data === "start_surprise") {
-                audio.play();
-            } else if (event.data === "go_to_hub") {
+                audio.play().catch(e => console.log("Music play blocked until user interaction."));
+            } 
+            
+            // 2. Changes the iframe content to the Hub menu
+            else if (event.data === "go_to_hub") {
                 frame.src = "hub.html";
-            } else if (event.data === "pause_bg_music") {
+            }
+
+            // 3. Pauses background music (for Reels or Songs)
+            else if (event.data === "pause_bg_music") {
                 audio.pause();
-            } else if (event.data === "resume_bg_music") {
+            } 
+
+            // 4. Resumes background music
+            else if (event.data === "resume_bg_music") {
                 audio.play();
             }
         });
