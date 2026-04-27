@@ -3,36 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Hub - Choose a Gift</title>
+    <title>The Hub | For Riddhi</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Inter:wght@300;500&display=swap" rel="stylesheet">
     <style>
-        .bg-fixed-comet { background: url('comet.jpg') no-repeat center center fixed; background-size: cover; }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2); transition: all 0.4s ease;
+        .handwritten { font-family: 'Dancing Script', cursive; }
+        body { 
+            font-family: 'Inter', sans-serif;
+            background: url('comet.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
         }
-        .glass-card:hover { transform: translateY(-8px); background: rgba(255, 255, 255, 0.25); }
+        
+        /* Glass effect for the cards */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.4s ease;
+        }
+        
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+            border-color: rgba(254, 205, 211, 0.5); /* Rose color */
+        }
+
+        .shimmer {
+            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
     </style>
 </head>
-<body class="bg-fixed-comet min-h-screen flex flex-col items-center justify-center p-6 relative">
-    <div class="fixed inset-0 bg-black/40 z-0"></div>
-    <div class="relative z-10 text-center mb-12">
-        <h1 class="text-4xl md:text-5xl font-bold text-white mb-2">Welcome, Riddhi! ✨</h1>
-        <p class="text-gray-200 opacity-80">Pick a gift to explore</p>
+<body class="min-h-screen flex flex-col items-center justify-center p-6">
+
+    <div class="fixed inset-0 bg-black/30 -z-10"></div>
+
+    <header class="text-center mb-12 animate-fade-in">
+        <h1 class="handwritten text-6xl text-rose-200 mb-2">Welcome, Riddhi</h1>
+        <p class="text-rose-100/60 uppercase tracking-[0.4em] text-xs">A collection of moments & feelings</p>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
+        
+        <a href="feelings.html" class="glass-card rounded-3xl p-8 flex flex-col items-center text-center group">
+            <span class="text-4xl mb-4 group-hover:scale-110 transition-transform">💌</span>
+            <h2 class="text-2xl font-medium mb-2">My Feelings</h2>
+            <p class="text-sm text-white/60">A letter from my heart and a special reel for you.</p>
+        </a>
+
+        <a href="memories.html" class="glass-card rounded-3xl p-8 flex flex-col items-center text-center group">
+            <span class="text-4xl mb-4 group-hover:scale-110 transition-transform">📸</span>
+            <h2 class="text-2xl font-medium mb-2">Our Memories</h2>
+            <p class="text-sm text-white/60">A gallery of our best moments. Click to see the captions.</p>
+        </a>
+
+        <a href="needs.html" class="glass-card rounded-3xl p-8 flex flex-col items-center text-center group">
+            <span class="text-4xl mb-4 group-hover:scale-110 transition-transform">✨</span>
+            <h2 class="text-2xl font-medium mb-2">Vibes</h2>
+            <p class="text-sm text-white/60">The things I love about us and our connection.</p>
+        </a>
+
+        <a href="music.html" class="glass-card rounded-3xl p-8 flex flex-col items-center text-center group">
+            <span class="text-4xl mb-4 group-hover:scale-110 transition-transform">🎵</span>
+            <h2 class="text-2xl font-medium mb-2">Our Playlist</h2>
+            <p class="text-sm text-white/60">The songs and sounds that remind me of you.</p>
+        </a>
+
     </div>
-    <div class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-3xl">
-        <a href="feelings.html" class="glass-card flex flex-col items-center justify-center h-44 rounded-3xl">
-            <span class="text-4xl mb-3">💌</span><span class="text-xl font-bold text-white">My Letter</span>
-        </a>
-        <a href="needs.html" class="glass-card flex flex-col items-center justify-center h-44 rounded-3xl">
-            <span class="text-4xl mb-3">💭</span><span class="text-xl font-bold text-white">What I Need</span>
-        </a>
-        <a href="music.html" class="glass-card flex flex-col items-center justify-center h-44 rounded-3xl">
-            <span class="text-4xl mb-3">🎵</span><span class="text-xl font-bold text-white">Dedicated Songs</span>
-        </a>
-        <a href="memories.html" class="glass-card flex flex-col items-center justify-center h-44 rounded-3xl">
-            <span class="text-4xl mb-3">📸</span><span class="text-xl font-bold text-white">Our Memories</span>
-        </a>
-    </div>
+
+    <footer class="mt-16 text-center">
+        <p class="handwritten text-2xl text-rose-100/80">"You make every moment feel like magic."</p>
+    </footer>
+
 </body>
 </html>
