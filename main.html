@@ -8,47 +8,79 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <style>
         .handwritten { font-family: 'Dancing Script', cursive; }
+        
+        /* The Velvet Texture */
         .velvet {
             background: linear-gradient(90deg, #7f1d1d 0%, #b91c1c 15%, #991b1b 30%, #b91c1c 45%, #7f1d1d 60%, #b91c1c 75%, #7f1d1d 100%);
             background-size: 50px 100%;
         }
+
         .curtain {
             transition: all 2.5s cubic-bezier(0.45, 0.05, 0.55, 0.95);
             z-index: 50;
         }
-        .open-left { transform: translateX(-85%) skewY(5deg) scaleX(0.4); border-radius: 0 50% 50% 0; }
-        .open-right { transform: translateX(85%) skewY(-5deg) scaleX(0.4); border-radius: 50% 0 0 50%; }
-        .fade-in-text { animation: fadeInScale 2s forwards; opacity: 0; }
-        @keyframes fadeInScale { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+
+        /* Opening Animations */
+        .open-left { 
+            transform: translateX(-85%) skewY(5deg) scaleX(0.4); 
+            border-radius: 0 50% 50% 0;
+        }
+        .open-right { 
+            transform: translateX(85%) skewY(-5deg) scaleX(0.4); 
+            border-radius: 50% 0 0 50%;
+        }
+
+        .fade-in-text { 
+            animation: fadeInScale 2s forwards; 
+            opacity: 0; 
+        }
+
+        @keyframes fadeInScale { 
+            from { opacity: 0; transform: scale(0.8); } 
+            to { opacity: 1; transform: scale(1); } 
+        }
     </style>
 </head>
 <body class="bg-black overflow-hidden">
 
     <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-4 z-10">
-        <h2 id="reveal-text" class="handwritten text-5xl md:text-8xl text-yellow-500 hidden">Happy Birthday Riddhi ❤️</h2>
+        <h2 id="reveal-text" class="handwritten text-5xl md:text-8xl text-yellow-500 hidden">
+            Happy Birthday, Riddhi ❤️
+        </h2>
     </div>
 
-    <div id="left" class="curtain velvet fixed top-0 left-0 w-1/2 h-full border-r border-yellow-600/30"></div>
-    <div id="right" class="curtain velvet fixed top-0 right-0 w-1/2 h-full border-l border-yellow-600/30"></div>
+    <div id="left" class="curtain velvet fixed top-0 left-0 w-1/2 h-full border-r border-yellow-600/30 shadow-[10px_0_30px_rgba(0,0,0,0.5)]"></div>
+    <div id="right" class="curtain velvet fixed top-0 right-0 w-1/2 h-full border-l border-yellow-600/30 shadow-[-10px_0_30px_rgba(0,0,0,0.5)]"></div>
 
     <div id="trigger" class="absolute inset-0 flex flex-col items-center justify-center z-[60]">
         <button onclick="revealMagic()" class="group relative px-14 py-6 font-bold text-white transition-all">
-            <span class="absolute inset-0 w-full h-full bg-yellow-600 rounded-xl blur-md opacity-70"></span>
-            <span class="relative bg-zinc-900 border-2 border-yellow-500 px-14 py-6 rounded-xl block text-xl tracking-widest">REVEAL THE MAGIC</span>
+            <span class="absolute inset-0 w-full h-full bg-yellow-600 rounded-xl blur-md opacity-70 group-hover:opacity-100 transition-opacity"></span>
+            <span class="relative bg-zinc-900 border-2 border-yellow-500 px-14 py-6 rounded-xl block text-xl tracking-widest uppercase group-active:scale-95 transition-transform">
+                Reveal the Magic
+            </span>
         </button>
+        <p class="text-yellow-500/50 mt-6 tracking-[0.3em] text-xs uppercase animate-pulse">Touch to Begin</p>
     </div>
 
     <script>
         function revealMagic() {
+            // 1. Move curtains
             document.getElementById('left').classList.add('open-left');
             document.getElementById('right').classList.add('open-right');
+            
+            // 2. Hide button
             document.getElementById('trigger').style.opacity = '0';
+            document.getElementById('trigger').style.pointerEvents = 'none';
+
+            // 3. Show text
             const text = document.getElementById('reveal-text');
             text.classList.remove('hidden');
             text.classList.add('fade-in-text');
 
-            // Signal index.html (the parent) to start music and move to hub
+            // 4. Send "Message" to index.html to play music
             window.parent.postMessage("start_surprise", "*");
+
+            // 5. Send "Message" to index.html to switch to hub.html after 5 seconds
             setTimeout(() => {
                 window.parent.postMessage("go_to_hub", "*");
             }, 5000);
