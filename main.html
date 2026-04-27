@@ -5,46 +5,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For Riddhi ❤️</title>
     <style>
+        /* Ensures the site takes up the full screen with no scrollbars */
         body, html { 
-            margin: 0; padding: 0; height: 100%; width: 100%;
-            overflow: hidden; background: #000; 
+            margin: 0; 
+            padding: 0; 
+            height: 100%; 
+            width: 100%;
+            overflow: hidden; 
+            background: #000; 
         }
-        iframe { width: 100%; height: 100%; border: none; display: block; }
+
+        /* The iframe is the window that shows all your other pages */
+        iframe { 
+            width: 100%; 
+            height: 100%; 
+            border: none; 
+            display: block;
+        }
+
+        /* Keep the audio player hidden */
         #bgMusic { display: none; }
     </style>
 </head>
 <body>
+
     <audio id="bgMusic" loop>
         <source src="snap/song1.mp3" type="audio/mpeg">
     </audio>
+
     <iframe id="contentFrame" src="index.html"></iframe>
+
     <script>
         const audio = document.getElementById("bgMusic");
         const frame = document.getElementById("contentFrame");
+
+        // Listen for signals from your other pages (index, feelings, music)
         window.addEventListener("message", function(event) {
-            if (event.data === "start_surprise") { audio.play(); } 
-            else if (event.data === "go_to_hub") { frame.src = "hub.html"; }
-            else if (event.data === "pause_bg_music") { audio.pause(); } 
-            else if (event.data === "resume_bg_music") { audio.play(); }
+            
+            // 1. Starts music when "Reveal" is clicked in index.html
+            if (event.data === "start_surprise") {
+                audio.play();
+            } 
+            
+            // 2. Switches from Curtains to the Hub menu
+            else if (event.data === "go_to_hub") {
+                frame.src = "hub.html";
+            }
+
+            // 3. Pauses music when Riddhi plays a video/reel
+            else if (event.data === "pause_bg_music") {
+                audio.pause();
+            } 
+
+            // 4. Resumes music when the video/reel is paused or ends
+            else if (event.data === "resume_bg_music") {
+                audio.play();
+            }
         });
     </script>
-<script>
-    const reel = document.getElementById('feelingReel');
-
-    // When the video starts playing
-    reel.onplay = function() {
-        window.parent.postMessage("pause_bg_music", "*");
-    };
-
-    // When the video is paused
-    reel.onpause = function() {
-        window.parent.postMessage("resume_bg_music", "*");
-    };
-
-    // When the video finishes
-    reel.onended = function() {
-        window.parent.postMessage("resume_bg_music", "*");
-    };
-</script>
 </body>
 </html>
